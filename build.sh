@@ -1,0 +1,1 @@
+browserify js/index.js -o js/main.js
