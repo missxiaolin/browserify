@@ -1,1 +1,2 @@
-alert(1)
+alert('你好')
+alert(3)

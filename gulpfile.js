@@ -30,7 +30,7 @@ gulp.task('js', function () {
 
     var bundle = function () {
         b.bundle()
-         .pipe(source('main.js'))
+         .pipe(source('index.js'))
          .pipe(buffer())
          .pipe(gif(isProduction, uglify()))
          .pipe(gulp.dest('./www/js/'));
