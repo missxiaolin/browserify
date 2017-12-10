@@ -12,3 +12,5 @@
 - gulp-if
 - gulp-coffee
 - gulp-plumber
+- gulp-concat
+- gulp-clean-css

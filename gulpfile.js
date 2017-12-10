@@ -8,17 +8,19 @@ var gulp = require('gulp'),
     gif = require('gulp-if'),
     fs = require('fs'),
     copy = require('gulp-contrib-copy'),
-    coffee = require('gulp-coffee')
-    sequence = require('run-sequence');
+    coffee = require('gulp-coffee'),
+    sequence = require('run-sequence'),
+    concat = require('gulp-concat'),
+    cleanCss = require('gulp-clean-css');
 
 
 var isProduction = process.env.ENV === 'prod';
 
 gulp.task('default', function () {
-    sequence('vendorjs','mainjs')
+    sequence('css', 'css-watch', 'vendorjs','js')
 })
 
-gulp.task('mainjs', function () {
+gulp.task('js', function () {
     var b = browserify({
         entries: ['./assets/js/index.js'],
         cache: {},
@@ -39,11 +41,26 @@ gulp.task('mainjs', function () {
     b.on('update', bundle)
 })
 
-gulp.task('coffee',function(){
-    gulp.src('./assets/js/*.coffee')
-        .pipe(coffee())
-        .pipe(gulp.dest('./www/js/build'))
+// css处理
+gulp.task('css', function () {
+    gulp.src(['./assets/css/index.css'])
+        .pipe(concat('main.css'))
+        .pipe(cleanCss())
+        .pipe(gulp.dest('./www/css/'))
 })
+
+// 监听css
+gulp.task('css-watch',function(){
+    gulp.watch('./assets/css/*.css',['css'])
+
+})
+
+// .coffee处理
+// gulp.task('coffee',function(){
+//     gulp.src('./assets/js/*.coffee')
+//         .pipe(coffee())
+//         .pipe(gulp.dest('./www/js/build'))
+// })
 
 gulp.task('vendorjs',function(){
     var b = browserify().require('./bower_components/jquery/dist/jquery.js',{
