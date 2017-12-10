@@ -14,41 +14,40 @@ var gulp = require('gulp'),
     cleanCss = require('gulp-clean-css')
     dirname = __dirname;
 
-var files = JSON.parse(fs.readFileSync(dirname + '/tools/build.json')).modules;
-var path = '';
-files.forEach(function (ele, index) {
-    console.log(ele)
-    console.log(index)
-})
+var files = JSON.parse(fs.readFileSync(dirname + '/tools/build.json')).modules,
+    path = '',
+    isProduction = process.env.ENV === 'prod',
+    // 定义源代码的目录和编译压缩后的目录
+    src='./assets',
+    dist = './www';
 
-return false;
-
-
-var isProduction = process.env.ENV === 'prod';
 
 gulp.task('default', function () {
     sequence('css', 'css-watch', 'vendorjs','js')
 })
 
+// js监听
 gulp.task('js', function () {
-    var b = browserify({
-        entries: ['./assets/js/pages/index/index.js'],
-        cache: {},
-        packageCache: {},
-        plugin: [watchify]
-    }).external('jquery');
-
-    var bundle = function () {
-        b.bundle()
-         .pipe(source('index.js'))
-         .pipe(buffer())
-         .pipe(gif(isProduction, uglify()))
-         .pipe(gulp.dest('./www/js/'));
-    }
-
-    bundle();
-
-    b.on('update', bundle)
+    files.forEach(function (ele, index) {
+        var b = browserify({
+            entries: [src + '/js/pages/' + ele.src + '.js'],
+            cache: {},
+            packageCache: {},
+            plugin: [watchify]
+        }).external('jquery');
+    
+        var bundle = function () {
+            b.bundle()
+             .pipe(source(ele.name))
+             .pipe(buffer())
+             .pipe(gif(isProduction, uglify()))
+             .pipe(gulp.dest('./www/js/' + ele.dest + '/'));
+        }
+    
+        bundle();
+    
+        b.on('update', bundle)
+    })
 })
 
 // css处理
