@@ -10,3 +10,4 @@
 - vinyl-source-stream
 - vinyl-buffer
 - gulp-if
+- gulp-coffee

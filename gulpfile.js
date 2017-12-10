@@ -7,6 +7,8 @@ var gulp = require('gulp'),
     buffer = require('vinyl-buffer'),
     gif = require('gulp-if'),
     fs = require('fs'),
+    copy = require('gulp-contrib-copy'),
+    coffee = require('gulp-coffee')
     sequence = require('run-sequence');
 
 
@@ -18,7 +20,7 @@ gulp.task('default', function () {
 
 gulp.task('mainjs', function () {
     var b = browserify({
-        entries: ['assets/js/index.js'],
+        entries: ['./assets/js/index.js'],
         cache: {},
         packageCache: {},
         plugin: [watchify]
@@ -29,7 +31,7 @@ gulp.task('mainjs', function () {
          .pipe(source('main.js'))
          .pipe(buffer())
          .pipe(gif(isProduction, uglify()))
-         .pipe(gulp.dest('www/js/'));
+         .pipe(gulp.dest('./www/js/'));
     }
 
     bundle();
@@ -37,13 +39,25 @@ gulp.task('mainjs', function () {
     b.on('update', bundle)
 })
 
+gulp.task('coffee',function(){
+    gulp.src('./assets/js/*.coffee')
+        .pipe(coffee())
+        .pipe(gulp.dest('./www/js/build'))
+})
+
 gulp.task('vendorjs',function(){
     var b = browserify().require('./bower_components/jquery/dist/jquery.js',{
         expose: 'jquery'
     })
     .bundle()
-    .pipe(fs.createWriteStream('www/js/vendor.js'))
+    .pipe(source('vendor.js'))
+    .pipe(buffer())
+    .pipe(gif(isProduction, uglify()))
+    .pipe(gulp.dest('./www/js/'))
 })
 
-// gulp.task('watch', function () {     gulp         .watch(['assets/js/*'],
-// function () {             sequence('mainjs')         }) })
+// gulp.task('watch', function () {     
+//     gulp.watch(['assets/js/*'],function () {
+//         sequence('mainjs')         
+//     }) 
+// })
