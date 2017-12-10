@@ -1,4 +1,4 @@
 $(function(){
     console.log(require('./ceshi'))
-    alert(1)
+    // alert(1)
 })

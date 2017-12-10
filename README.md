@@ -5,3 +5,4 @@
 - shelljs
 - browserify
 - run-sequence
+- watchify

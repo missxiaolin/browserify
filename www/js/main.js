@@ -3,6 +3,6 @@ module.exports = '小林'
 },{}],2:[function(require,module,exports){
 $(function(){
     console.log(require('./ceshi'))
-    alert(1)
+    // alert(1)
 })
 },{"./ceshi":1}]},{},[2]);
