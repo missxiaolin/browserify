@@ -6,3 +6,6 @@
 - browserify
 - run-sequence
 - watchify
+- gulp-uglify
+- vinyl-source-stream
+- vinyl-buffer

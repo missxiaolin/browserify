@@ -1,9 +1,12 @@
 var gulp = require('gulp'),
     shelljs = require('shelljs'),
     browserify = require('browserify'),
-    watchify = require('watchify')
-fs = require('fs'),
-sequence = require('run-sequence')
+    watchify = require('watchify'),
+    uglify = require('gulp-uglify'),
+    source = require('vinyl-source-stream'),
+    buffer = require('vinyl-buffer'),
+    fs = require('fs'),
+    sequence = require('run-sequence');
 
 gulp.task('default', function () {
     sequence('vendorjs','mainjs')
@@ -19,7 +22,10 @@ gulp.task('mainjs', function () {
 
     var bundle = function () {
         b.bundle()
-         .pipe(fs.createWriteStream('www/js/main.js'));
+         .pipe(source('main.js'))
+         .pipe(buffer())
+         .pipe(uglify())
+         .pipe(gulp.dest('www/js/'));
     }
 
     bundle();
