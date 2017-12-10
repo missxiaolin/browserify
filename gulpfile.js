@@ -11,7 +11,17 @@ var gulp = require('gulp'),
     coffee = require('gulp-coffee'),
     sequence = require('run-sequence'),
     concat = require('gulp-concat'),
-    cleanCss = require('gulp-clean-css');
+    cleanCss = require('gulp-clean-css')
+    dirname = __dirname;
+
+var files = JSON.parse(fs.readFileSync(dirname + '/tools/build.json')).modules;
+var path = '';
+files.forEach(function (ele, index) {
+    console.log(ele)
+    console.log(index)
+})
+
+return false;
 
 
 var isProduction = process.env.ENV === 'prod';

@@ -1,0 +1,19 @@
+{
+    "modules": [
+        {
+            "src": "index/edit",
+            "dest": "index",
+            "name": "edit.js"
+        },
+        {
+            "src": "index/index",
+            "dest": "index",
+            "name": "index.js"
+        },
+        {
+            "src": "provider/provider",
+            "dest": "provider",
+            "name": "provider.js"
+        }
+    ]
+}
