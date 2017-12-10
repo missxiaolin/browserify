@@ -5,8 +5,12 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     source = require('vinyl-source-stream'),
     buffer = require('vinyl-buffer'),
+    gif = require('gulp-if'),
     fs = require('fs'),
     sequence = require('run-sequence');
+
+
+var isProduction = process.env.ENV === 'prod';
 
 gulp.task('default', function () {
     sequence('vendorjs','mainjs')
@@ -24,7 +28,7 @@ gulp.task('mainjs', function () {
         b.bundle()
          .pipe(source('main.js'))
          .pipe(buffer())
-         .pipe(uglify())
+         .pipe(gif(isProduction, uglify()))
          .pipe(gulp.dest('www/js/'));
     }
 
