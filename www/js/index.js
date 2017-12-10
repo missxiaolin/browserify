@@ -3,7 +3,7 @@ module.exports = '小林'
 },{}],2:[function(require,module,exports){
 $ = require('jquery')
 $(function(){
-    console.log(require('./ceshi'))
-    // alert(1)
+    console.log(require('../../commond/ceshi'))
+    alert(1)
 })
-},{"./ceshi":1,"jquery":"jquery"}]},{},[2]);
+},{"../../commond/ceshi":1,"jquery":"jquery"}]},{},[2]);

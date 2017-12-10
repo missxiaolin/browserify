@@ -22,7 +22,7 @@ gulp.task('default', function () {
 
 gulp.task('js', function () {
     var b = browserify({
-        entries: ['./assets/js/index.js'],
+        entries: ['./assets/js/pages/index/index.js'],
         cache: {},
         packageCache: {},
         plugin: [watchify]
@@ -57,9 +57,9 @@ gulp.task('css-watch',function(){
 
 // .coffee处理
 // gulp.task('coffee',function(){
-//     gulp.src('./assets/js/*.coffee')
+//     gulp.src('./assets/js/commond/*.coffee')
 //         .pipe(coffee())
-//         .pipe(gulp.dest('./www/js/build'))
+//         .pipe(gulp.dest('./www/js/commond'))
 // })
 
 gulp.task('vendorjs',function(){
