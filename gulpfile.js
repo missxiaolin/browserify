@@ -1,6 +1,11 @@
 var gulp = require('gulp'),
-    shelljs = require('shelljs')
+    shelljs = require('shelljs'),
+    browserify = require('browserify'),
+    fs = require('fs')
 
 gulp.task('default',function(){
-    shelljs.exec('browserify js/index.js -o js/main.js')
+    browserify()
+    .add('js/index.js')
+    .bundle()
+    .pipe(fs.createWriteStream('js/main.js'))
 })
