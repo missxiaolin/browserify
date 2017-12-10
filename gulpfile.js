@@ -1,5 +1,6 @@
-var gulp = require('gulp')
+var gulp = require('gulp'),
+    shelljs = require('shelljs')
 
 gulp.task('default',function(){
-    console.log('this is default')
+    shelljs.exec('browserify js/index.js -o js/main.js')
 })
