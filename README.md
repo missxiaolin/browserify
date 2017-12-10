@@ -11,3 +11,4 @@
 - vinyl-buffer
 - gulp-if
 - gulp-coffee
+- gulp-plumber
