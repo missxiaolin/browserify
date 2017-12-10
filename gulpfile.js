@@ -1,11 +1,22 @@
 var gulp = require('gulp'),
     shelljs = require('shelljs'),
     browserify = require('browserify'),
-    fs = require('fs')
+    fs = require('fs'),
+    sequence = require('run-sequence')
 
 gulp.task('default',function(){
+    sequence('mainjs','watch')
+})
+
+gulp.task('mainjs',function(){
     browserify()
-    .add('js/index.js')
+    .add('assets/js/index.js')
     .bundle()
-    .pipe(fs.createWriteStream('js/main.js'))
+    .pipe(fs.createWriteStream('www/js/main.js'))
+})
+
+gulp.task('watch',function(){
+    gulp.watch(['assets/js/*'],function(){
+        sequence('mainjs')
+    })
 })
