@@ -18,7 +18,6 @@ var gulp = require('gulp'),
 
 var files = JSON.parse(fs.readFileSync(dirname + '/tools/build.json')).modules,
     path = '',
-    isProduction = process.env.ENV === 'prod',
     // 定义源代码的目录和编译压缩后的目录
     src='./assets',
     dist = './www';
@@ -36,11 +35,21 @@ var knowOptions = {
         env: process.env.NODE_ENV || 'production'
     }
 },
-options = minimist(process.argv.slice(2), knowOptions);
+options = minimist(process.argv.slice(2), knowOptions)
+isProduction = options.env === 'production';
 
 gulp.task('constants', function() {
     var envConfig = myConfig[options.env],
-        conConfig = 'appconfig = ' + JSON.stringify(envConfig);
+        conConfig = 'module.exports = ' + JSON.stringify(envConfig),
+        configDirname = dirname + '/' + src + '/js/commond/config.js';
+        console.log(configDirname)
+        console.log(conConfig)
+        fs.writeFile(configDirname, conConfig, function (err) {
+            if (err) {
+                console.log(err);
+            }
+            console.log('It\'s done.');
+        });
 })
 
 // js监听

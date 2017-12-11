@@ -317,7 +317,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "/usr/local/bin/node tools/boot.js; NODE_ENV=dev gulp",
-    "production": "/usr/local/bin/node tools/boot.js; ENV=prod gulp"
+    "production": "/usr/local/bin/node tools/boot.js; NODE_ENV=production gulp"
   },
   "repository": {
     "type": "git",

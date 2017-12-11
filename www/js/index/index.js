@@ -1,9 +1,1 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-module.exports = '小林'
-},{}],2:[function(require,module,exports){
-$ = require('jquery')
-$(function(){
-    console.log(require('../../commond/ceshi'))
-    // alert(process.env.BASE_API)
-})
-},{"../../commond/ceshi":1,"jquery":"jquery"}]},{},[2]);
+!function o(r,n,e){function t(u,c){if(!n[u]){if(!r[u]){var f="function"==typeof require&&require;if(!c&&f)return f(u,!0);if(i)return i(u,!0);var a=new Error("Cannot find module '"+u+"'");throw a.code="MODULE_NOT_FOUND",a}var l=n[u]={exports:{}};r[u][0].call(l.exports,function(o){var n=r[u][1][o];return t(n||o)},l,l.exports,o,r,n,e)}return n[u].exports}for(var i="function"==typeof require&&require,u=0;u<e.length;u++)t(e[u]);return t}({1:[function(o,r,n){r.exports="小林"},{}],2:[function(o,r,n){r.exports={apiUrl:"http://www.baidu.com",build:!0}},{}],3:[function(o,r,n){$=o("jquery"),$(function(){console.log(o("../../commond/ceshi"));var r=o("../../commond/config");console.log(r.apiUrl)})},{"../../commond/ceshi":1,"../../commond/config":2,jquery:"jquery"}]},{},[3]);
