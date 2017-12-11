@@ -1,5 +1,5 @@
 $ = require('jquery')
 $(function(){
     console.log(require('../../commond/ceshi'))
-    alert(1)
+    // alert(process.env.BASE_API)
 })

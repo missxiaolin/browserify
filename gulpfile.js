@@ -11,8 +11,10 @@ var gulp = require('gulp'),
     coffee = require('gulp-coffee'),
     sequence = require('run-sequence'),
     concat = require('gulp-concat'),
-    cleanCss = require('gulp-clean-css')
-    dirname = __dirname;
+    cleanCss = require('gulp-clean-css'),
+    dirname = __dirname,
+    config = require('./config/index.json')
+    minimist = require('minimist');
 
 var files = JSON.parse(fs.readFileSync(dirname + '/tools/build.json')).modules,
     path = '',
@@ -20,6 +22,21 @@ var files = JSON.parse(fs.readFileSync(dirname + '/tools/build.json')).modules,
     // 定义源代码的目录和编译压缩后的目录
     src='./assets',
     dist = './www';
+
+
+//默认development环境
+var knowOptions = {
+    string: 'env',
+    default: {
+        env: process.env.NODE_ENV || 'production'
+    }
+},
+options = minimist(process.argv.slice(2), knowOptions),
+environment = options.env
+console.log(options.env)
+
+console.log(config[environment])
+
 
 
 gulp.task('default', function () {

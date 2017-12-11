@@ -1,0 +1,10 @@
+{
+    "dev":{
+        "apiUrl": "http://www.baidu.com",
+        "build": false
+    },
+    "production":{
+        "apiUrl": "http://www.baidu.com",
+        "build": true
+    }
+}
