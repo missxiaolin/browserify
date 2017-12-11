@@ -36,15 +36,13 @@ var knowOptions = {
     }
 },
 options = minimist(process.argv.slice(2), knowOptions)
-isProduction = options.env === 'production';
+isProduction = myConfig[options.env].build;
 
 // 配置项
 gulp.task('constants', function() {
     var envConfig = myConfig[options.env],
         conConfig = 'module.exports = ' + JSON.stringify(envConfig),
         configDirname = dirname + '/' + src + '/js/commond/config.js';
-        console.log(configDirname)
-        console.log(conConfig)
         fs.writeFile(configDirname, conConfig, function (err) {
             if (err) {
                 console.log(err);
