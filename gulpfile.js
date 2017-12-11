@@ -13,7 +13,7 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     cleanCss = require('gulp-clean-css'),
     dirname = __dirname,
-    config = require('./config/index.json')
+    myConfig = require('./config/index.json')
     minimist = require('minimist');
 
 var files = JSON.parse(fs.readFileSync(dirname + '/tools/build.json')).modules,
@@ -24,6 +24,11 @@ var files = JSON.parse(fs.readFileSync(dirname + '/tools/build.json')).modules,
     dist = './www';
 
 
+
+gulp.task('default', function () {
+    sequence('constants', 'css', 'css-watch', 'vendorjs','js')
+})
+
 //默认development环境
 var knowOptions = {
     string: 'env',
@@ -31,16 +36,11 @@ var knowOptions = {
         env: process.env.NODE_ENV || 'production'
     }
 },
-options = minimist(process.argv.slice(2), knowOptions),
-environment = options.env
-console.log(options.env)
+options = minimist(process.argv.slice(2), knowOptions);
 
-console.log(config[environment])
-
-
-
-gulp.task('default', function () {
-    sequence('css', 'css-watch', 'vendorjs','js')
+gulp.task('constants', function() {
+    var envConfig = myConfig[options.env],
+        conConfig = 'appconfig = ' + JSON.stringify(envConfig);
 })
 
 // js监听
@@ -58,7 +58,7 @@ gulp.task('js', function () {
              .pipe(source(ele.name))
              .pipe(buffer())
              .pipe(gif(isProduction, uglify()))
-             .pipe(gulp.dest('./www/js/' + ele.dest + '/'));
+             .pipe(gulp.dest(dist + '/js/' + ele.dest + '/'));
         }
     
         bundle();
@@ -69,23 +69,23 @@ gulp.task('js', function () {
 
 // css处理
 gulp.task('css', function () {
-    gulp.src(['./assets/css/index.css'])
+    gulp.src([src + '/css/index.css'])
         .pipe(concat('main.css'))
         .pipe(cleanCss())
-        .pipe(gulp.dest('./www/css/'))
+        .pipe(gulp.dest(dist + '/css/'))
 })
 
 // 监听css
 gulp.task('css-watch',function(){
-    gulp.watch('./assets/css/*.css',['css'])
+    gulp.watch(src + '/css/*.css',['css'])
 
 })
 
 // .coffee处理
 // gulp.task('coffee',function(){
-//     gulp.src('./assets/js/commond/*.coffee')
+//     gulp.src(src + '/js/commond/*.coffee')
 //         .pipe(coffee())
-//         .pipe(gulp.dest('./www/js/commond'))
+//         .pipe(gulp.dest(dist + '/js/commond'))
 // })
 
 gulp.task('vendorjs',function(){
@@ -96,11 +96,11 @@ gulp.task('vendorjs',function(){
     .pipe(source('vendor.js'))
     .pipe(buffer())
     .pipe(gif(isProduction, uglify()))
-    .pipe(gulp.dest('./www/js/'))
+    .pipe(gulp.dest(dist + '/js/'))
 })
 
 // gulp.task('watch', function () {     
-//     gulp.watch(['assets/js/*'],function () {
+//     gulp.watch([src + '/js/*'],function () {
 //         sequence('mainjs')         
 //     }) 
 // })
