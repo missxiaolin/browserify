@@ -38,6 +38,7 @@ var knowOptions = {
 options = minimist(process.argv.slice(2), knowOptions)
 isProduction = options.env === 'production';
 
+// 配置项
 gulp.task('constants', function() {
     var envConfig = myConfig[options.env],
         conConfig = 'module.exports = ' + JSON.stringify(envConfig),
